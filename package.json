@@ -1,0 +1,28 @@
+{
+  "name": "@resource-sentry/reader-properties",
+  "version": "1.0.0",
+  "description": "Resource Sentry Properties Reader.",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/resource-sentry/reader-properties.git"
+  },
+  "keywords": [
+    "reader",
+    "static",
+    "sentry",
+    "properties",
+    "java",
+    "resource-sentry",
+    "rs"
+  ],
+  "author": "Nicolas Siver",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/resource-sentry/reader-properties/issues"
+  },
+  "homepage": "https://github.com/resource-sentry/reader-properties#readme"
+}
