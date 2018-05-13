@@ -27,6 +27,7 @@
   "homepage": "https://github.com/resource-sentry/reader-properties#readme",
   "dependencies": {
     "@resource-sentry/utils": "^1.0.0",
-    "bluebird": "^3.5.1"
+    "bluebird": "^3.5.1",
+    "clone-deep": "^4.0.0"
   }
 }
