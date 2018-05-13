@@ -5,6 +5,9 @@ Supports multi-line properties.
 
 Note: properties files are popular in Java world.
 
+![Version](https://img.shields.io/npm/v/@resource-sentry/reader-properties.svg)
+![Dependencies](https://david-dm.org/resource-sentry/reader-properties.svg)
+
 ## Installation
 
 > yarn add --dev @resource-sentry/reader-properties
