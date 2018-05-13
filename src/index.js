@@ -1,9 +1,12 @@
 const Promise    = require('bluebird'),
+      cloneDeep  = require('clone-deep'),
       fsNative   = require('fs'),
       path       = require('path'),
       BaseReader = require('@resource-sentry/utils/lib/base-reader'),
       Categories = require('@resource-sentry/utils/lib/categories'),
       Logger     = require('@resource-sentry/utils/lib/logger');
+
+const Constants = require('./model/constants');
 
 const fs = Promise.promisifyAll(fsNative);
 
@@ -12,17 +15,15 @@ class PropertiesReader extends BaseReader {
         super();
         this.logger = Logger(this.constructor.name);
         this.config = config;
-        this.keyValue = /^(\w+)[=:\s]+([\S\s]+?[^\\])(?=$)/gm;
-        this.newLine = /\r?\n|\r/g;
-        this.extraSpaces = /\s{2,}/g;
-        this.extraLines = /\\/g;
     }
 
     getEntry() {
-        return this.config.entry;
+        return this.config['entry'];
     }
 
     scan() {
+        let keyValue = cloneDeep(Constants.REG_EXP_KEY_VALUE);
+
         return Promise
             .resolve()
             .then(() => {
@@ -33,17 +34,17 @@ class PropertiesReader extends BaseReader {
             .then(content => {
                 let result, name, value, category, numericValue;
 
-                this.keyValue.lastIndex = 0;
+                keyValue.lastIndex = 0;
 
-                while ((result = this.keyValue.exec(content)) !== null) {
+                while ((result = keyValue.exec(content)) !== null) {
                     name = result[1];
                     value = result[2];
 
                     // Sanitize value
                     value = value
-                        .replace(this.newLine, '')
-                        .replace(this.extraSpaces, '')
-                        .replace(this.extraLines, '')
+                        .replace(Constants.REG_EXP_NEW_LINE, '')
+                        .replace(Constants.REG_EXP_EXTRA_SPACES, '')
+                        .replace(Constants.REG_EXP_EXTRA_LINES, '')
                         .trim();
 
                     numericValue = parseFloat(value);
@@ -51,7 +52,7 @@ class PropertiesReader extends BaseReader {
                     this.addValue(category, name, numericValue || value);
                 }
 
-                this.dispatch('dataDidChange');
+                this.dispatch(Constants.DATA_DID_CHANGE);
             });
     }
 }
